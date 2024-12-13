@@ -136,7 +136,7 @@ public class ShopContainer {
             upgradeVal = initialVal/(shopCnt*shopCnt*10);
             investVal = upgradeVal/(shopCnt*10.0);
             initialInvest = investVal;
-            profitIncrease = initialVal;
+            profitIncrease = upgradeVal;;
         }
         profitString = "$" + String.format("%.2f", profit);
         upgradeString = "$" + String.format("%.2f", upgradeVal);
@@ -254,17 +254,17 @@ public class ShopContainer {
             System.out.println(shopLabel.getText() + " upgrade Method start: Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
             updateProfit("+", profitIncrease);
             updateUpgrade("+", investVal);
-            progressSpeedDouble += progressSpeedDouble * 0.01;
+            progressSpeedDouble += progressSpeedDouble * 0.05;
             progressSpeed = (int) Math.floor(progressSpeedDouble);
             System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
             if(upgradeCnt%10 == 0){
                 investVal *= 2.0;
                 investString = "$" + String.format("%.2f", investVal);
             }
-            if(upgradeCnt%25 == 0){
-                investVal *= 2.0;
-                investString = "$" + String.format("%.2f", investVal);
-            }
+            // if(upgradeCnt%25 == 0){
+            //     investVal *= 2.0;
+            //     investString = "$" + String.format("%.2f", investVal);
+            // }
         }
     }
 
