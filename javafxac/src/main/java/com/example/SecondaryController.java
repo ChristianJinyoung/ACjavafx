@@ -17,7 +17,7 @@ public class SecondaryController {
     private static int shopCnt = 0;
     private static int rows = 10;
 
-    private static boolean testing = true;
+    private static boolean testing = false;
 
     // @FXML
     public void initialize() {

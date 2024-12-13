@@ -235,8 +235,8 @@ public class ShopContainer {
 
     private void upgradeRepeat(){
         if(SecondaryController.getCurrentCapital() >= upgradeVal){
+            System.out.println("upgradeRepeat");
             System.out.println(shopName + " capital: Profit: " + SecondaryController.getCapitalString() + ", Upgrade: " + upgradeString + ", Invest: " + investString);
-            sc.updateCurrentCapital("-", upgradeVal);
             upgrade();
         }
     }
@@ -247,6 +247,8 @@ public class ShopContainer {
 
     public void upgrade(){
         if(sc.getCurrentCapital() >= upgradeVal){
+            System.out.println("update");
+            sc.updateCurrentCapital("-", upgradeVal);
             upgradeCnt++;
             shopLabel.setText(shopName + " " + upgradeCnt + "x");
             System.out.println(shopLabel.getText() + " upgrade Method start: Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
