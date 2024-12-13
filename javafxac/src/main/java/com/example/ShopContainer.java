@@ -29,8 +29,10 @@ public class ShopContainer {
     private Button profitButton;
     private double profit;
     private double upgradeVal;
+    private double initialInvest;
     private double investVal;
     private double initialVal;
+    private double profitIncrease;
     private String investString = "$" + String.format("%.2f", investVal);
     private String upgradeString = "$" + String.format("%.2f", upgradeVal);
     private String profitString = "$" + String.format("%.2f", profit);
@@ -42,6 +44,8 @@ public class ShopContainer {
     private int progressSpeed = 1;
     private double progressSpeedDouble = 1.00;
     private Timeline progressTimer;
+
+    private boolean hired = false;
 
     private SecondaryController sc;
 
@@ -99,14 +103,18 @@ public class ShopContainer {
             profit = 1.00;
             upgradeVal = 2.00;
             investVal = upgradeVal/100.0;
+            initialInvest = investVal;
             progressSpeed = 2;
             progressSpeedDouble = 2.00;
+            profitIncrease = 1.00;
         } else {
             progressSpeed = 1;
             progressSpeedDouble = 1.00;
             profit = initialVal/2.0;
-            upgradeVal = initialVal/10;
-            investVal = upgradeVal/100.0;
+            upgradeVal = initialVal/(num*num*10);
+            investVal = upgradeVal/(num*10.0);
+            initialInvest = investVal;
+            profitIncrease = initialVal;
         }
         profitString = "$" + String.format("%.2f", profit);
         upgradeString = "$" + String.format("%.2f", upgradeVal);
@@ -178,7 +186,9 @@ public class ShopContainer {
                 sc.updateCurrentCapital("+", profit);
                 System.out.println("capital: " + SecondaryController.getCurrentCapital() + ", capitalString: " + SecondaryController.getCapitalString() + ", capitalLabel: " + sc.getCapitalLabel().getText());
                 progressBar.setProgress(0); // Reset progress
-                progressTimer.stop(); // Stop the timeline
+                if(!hired){
+                    progressTimer.stop(); // Stop the timeline
+                }
             }
         }));
 
@@ -216,17 +226,23 @@ public class ShopContainer {
     }
 
     public void upgrade(){
-        upgradeCnt++;
-        shopLabel.setText(shopName + " " + upgradeCnt + "x");
-        System.out.println(shopLabel.getText() + " upgrade Method start: Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
-        updateProfit("+", (1.00));
-        updateUpgrade("+", investVal);
-        progressSpeedDouble += progressSpeedDouble * 0.01;
-        progressSpeed = (int) Math.floor(progressSpeedDouble);
-        System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
-        if(upgradeCnt%10 == 0 || upgradeCnt%25 == 0){
-            investVal = investVal * 2.0;
-            investString = "$" + String.format("%.2f", investVal);
+        if(sc.getCurrentCapital() >= upgradeVal){
+            upgradeCnt++;
+            shopLabel.setText(shopName + " " + upgradeCnt + "x");
+            System.out.println(shopLabel.getText() + " upgrade Method start: Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
+            updateProfit("+", profitIncrease);
+            updateUpgrade("+", investVal);
+            progressSpeedDouble += progressSpeedDouble * 0.01;
+            progressSpeed = (int) Math.floor(progressSpeedDouble);
+            System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
+            if(upgradeCnt%10 == 0){
+                investVal *= 2.0;
+                investString = "$" + String.format("%.2f", investVal);
+            }
+            if(upgradeCnt%25 == 0){
+                investVal *= 2.0;
+                investString = "$" + String.format("%.2f", investVal);
+            }
         }
     }
 
@@ -256,5 +272,9 @@ public class ShopContainer {
         }
         upgradeString = "$" + String.format("%.2f", upgradeVal);
         upgradeButton.setText("Upgrade for " + upgradeString);
+    }
+
+    public void setHired(){
+        hired = true;
     }
 }

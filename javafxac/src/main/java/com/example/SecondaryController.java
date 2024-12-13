@@ -17,7 +17,7 @@ public class SecondaryController {
     private static int shopCnt = 0;
     private static int rows = 10;
 
-    private static boolean testing = true;
+    private static boolean testing = false;
 
     // @FXML
     public void initialize() {
@@ -28,39 +28,66 @@ public class SecondaryController {
         currentCapitalLabel.setText(currentCapitalString);
 
         //Column 1
-        ShopContainer lemonade = new ShopContainer("Lemonade Stand", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(lemonade.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop1 = new ShopContainer("Lemonade Stand", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop1.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
         
-        ShopContainer newspaper = new ShopContainer("Newspaper Stand", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(newspaper.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop2 = new ShopContainer("Newspaper Stand", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop2.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer bakery = new ShopContainer("Bakery", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(bakery.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop3 = new ShopContainer("Bakery", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop3.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer lumber = new ShopContainer("Lumber Yard", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(lumber.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop4 = new ShopContainer("Lumber Yard", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop4.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer test1 = new ShopContainer("test1", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(test1.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop5 = new ShopContainer("Thrift Store", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop5.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer test2 = new ShopContainer("test2", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(test2.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop6 = new ShopContainer("Boba Shop", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop6.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer test3 = new ShopContainer("test3", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(test3.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop7 = new ShopContainer("Bakery", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop7.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer test4 = new ShopContainer("test4", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(test4.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop8 = new ShopContainer("Sports Store", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop8.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer test5 = new ShopContainer("test5", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(test5.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop9 = new ShopContainer("Perfume Shop", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop9.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
-        ShopContainer test6 = new ShopContainer("test6", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(test6.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop10 = new ShopContainer("Seafood Restaurant", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop10.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
 
         //Column 2
-        ShopContainer tech = new ShopContainer("Tech Store", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        gameScreen.add(tech.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+        ShopContainer shop11 = new ShopContainer("Telecommunications Company", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop11.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop12 = new ShopContainer("Video Game Company", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop12.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop13 = new ShopContainer("Movie Streaming Service", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop13.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop14 = new ShopContainer("Electronics Store", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop14.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop15 = new ShopContainer("Car Dealership", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop15.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop16 = new ShopContainer("Real Estate Agency", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop16.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop17 = new ShopContainer("Law Firm", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop17.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop18 = new ShopContainer("Autonomous Robot Manufacturer", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop18.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop19 = new ShopContainer("Quantum Computer Manufacturer", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop19.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
+
+        ShopContainer shop20 = new ShopContainer("Space Exploration Tech Corp", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
+        gameScreen.add(shop20.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
     }
 
     @FXML
