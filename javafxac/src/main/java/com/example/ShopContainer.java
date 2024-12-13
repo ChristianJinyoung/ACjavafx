@@ -20,10 +20,14 @@ public class ShopContainer {
     private VBox container;
     private HBox header;
     private HBox buttons;
-    
-    private Label shopLabel;
+
     private String shopName;
     private String imagePath;
+    private int shopCnt;
+
+    private Label shopLabel;
+
+    private ProgressBar progressBar;
 
     private Button upgradeButton;
     private Button profitButton;
@@ -55,6 +59,7 @@ public class ShopContainer {
         container.setAlignment(Pos.CENTER);
         container.setStyle("-fx-background-color: lightblue; -fx-border-color: black; -fx-border-width: 1;");
         container.setPadding(new Insets(10));
+
         // Get screen size
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         double screenWidth = screenBounds.getWidth();
@@ -65,10 +70,31 @@ public class ShopContainer {
         header.setAlignment(Pos.CENTER);
         buttons = new HBox(10);
 
-        //Set up container header
         imagePath = iconPath;
-        // shopName = name;
         shopName = name;
+        shopCnt = num;
+
+        double power = 10;
+        for(int i = 0; i < num; i++){
+            power *= 10;
+        }
+        initialVal = num*(power);
+        initialString = "Invest in " + shopName + "?   $" + String.format("%.2f", initialVal);
+
+        // //Set up container header
+        setupHeader();
+
+        //Set up container progress bar
+        setupProgressBar();
+
+        //Set up container upgrade and profit buttons
+        setupButtons();
+
+        sc.updateShopCnt();
+    }
+
+    public void setupHeader(){
+        //Set up container header
         shopString = shopName + " " + upgradeCnt + "x";
         shopLabel = new Label(shopString);
         // header.getChildren().add(shopLabel);
@@ -84,25 +110,21 @@ public class ShopContainer {
         // header.getChildren().add(icon);
         header.getChildren().add(shopLabel);
         container.getChildren().add(header);
+    }
 
-        //Set up container progress bar
-        ProgressBar progressBar = new ProgressBar(0);
+    public void setupProgressBar(){
+        progressBar = new ProgressBar(0);
         progressBar.setMaxWidth(Double.MAX_VALUE);
         container.setAlignment(Pos.TOP_LEFT);
         container.getChildren().add(progressBar);
+    }
 
-        double power = 10;
-        for(int i = 0; i < num; i++){
-            power *= 10;
-        }
-        initialVal = num*(power);
-        initialString = "Invest in " + shopName + "?   $" + String.format("%.2f", initialVal);
-
+    public void setupButtons(){
         //Set up container buttons
-        if(name.equals("Lemonade Stand")){
+        if(shopName.equals("Lemonade Stand")){
             profit = 1.00;
             upgradeVal = 2.00;
-            investVal = upgradeVal/100.0;
+            investVal = upgradeVal/10.0;
             initialInvest = investVal;
             progressSpeed = 2;
             progressSpeedDouble = 2.00;
@@ -111,8 +133,8 @@ public class ShopContainer {
             progressSpeed = 1;
             progressSpeedDouble = 1.00;
             profit = initialVal/2.0;
-            upgradeVal = initialVal/(num*num*10);
-            investVal = upgradeVal/(num*10.0);
+            upgradeVal = initialVal/(shopCnt*shopCnt*10);
+            investVal = upgradeVal/(shopCnt*10.0);
             initialInvest = investVal;
             profitIncrease = initialVal;
         }
@@ -131,7 +153,7 @@ public class ShopContainer {
         upgradeButton.setPrefSize(200, 25);
         profitButton.setPrefSize(200, 25);
 
-        if(!name.equals("Lemonade Stand")){
+        if(!shopName.equals("Lemonade Stand")){
             header.setVisible(false);
             progressBar.setVisible(false);
             buttons.setVisible(false);
@@ -180,7 +202,7 @@ public class ShopContainer {
             // Increase the progress bar value by progressSpeed every 100 ms
             double currentValue = progressBar.getProgress(); // Get progress as a fraction (0.0 to 1.0)
             if (currentValue < 1.0) {
-                progressBar.setProgress(currentValue + progressSpeed / 100.0); // Adjust for 100% scale
+                progressBar.setProgress(currentValue + progressSpeed / (100.0*(shopCnt + 1))); // Adjust for 100% scale
             } else {
                 // Stop the timer once progress is complete
                 sc.updateCurrentCapital("+", profit);
@@ -209,8 +231,6 @@ public class ShopContainer {
         });
 
         upgradeButton.setOnMouseReleased(e -> upgradeRepeatTimeline.stop());
-
-        sc.updateShopCnt();
     }
 
     private void upgradeRepeat(){

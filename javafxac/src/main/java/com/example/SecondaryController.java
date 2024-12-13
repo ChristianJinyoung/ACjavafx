@@ -17,7 +17,7 @@ public class SecondaryController {
     private static int shopCnt = 0;
     private static int rows = 10;
 
-    private static boolean testing = false;
+    private static boolean testing = true;
 
     // @FXML
     public void initialize() {
@@ -25,8 +25,12 @@ public class SecondaryController {
             updateCurrentCapital("+", 10000.00);
         }
 
-        currentCapitalLabel.setText(currentCapitalString);
+        currentCapitalLabel.setText("Current Capital: " + currentCapitalString);
 
+        setupShops();
+    }
+
+    public void setupShops(){
         //Column 1
         ShopContainer shop1 = new ShopContainer("Lemonade Stand", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
         gameScreen.add(shop1.getContainer(), (shopCnt - 1)/rows, (shopCnt - 1)%rows);
@@ -125,7 +129,7 @@ public class SecondaryController {
             currentCapital /= val;
         }
         currentCapitalString = "$" + String.format("%.2f", currentCapital);
-        currentCapitalLabel.setText(currentCapitalString);
+        currentCapitalLabel.setText("Current Capital: " + currentCapitalString);
     }
 
     public static void updateShopCnt(){
