@@ -14,7 +14,7 @@
     <top>
         <HBox fx:id="topBar" prefHeight="50" spacing="20.0" alignment="CENTER_LEFT">
             <children>
-                <Label fx:id="currentCapitalLabel" text="#getCurrentCapital()"/>
+                <Label fx:id="currentCapitalLabel" text="Capital: $0.00"/>
 
                 <HBox fx:id="navBar" spacing="20.0" HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT">
                     <Button fx:id="exitGameButton" text="Exit" onAction="#handleGameExit"/>
