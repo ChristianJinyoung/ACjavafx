@@ -16,13 +16,20 @@ public class SecondaryController {
     private static String currentCapitalString = "$" + String.format("%.2f", currentCapital);
     private static int shopCnt = 0;
 
+    private static boolean testing = true;
+
     // @FXML
     public void initialize() {
+        if(testing){
+            updateCurrentCapital("+", 10000.00);
+        }
+
         currentCapitalLabel.setText(currentCapitalString);
         ShopContainer lemonadeStand = new ShopContainer("Lemonade", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
-        // ShopContainer lemonadeStand = new ShopContainer("Lemonade Stand");
+        ShopContainer newspaperStand = new ShopContainer("Newspaper", "javafxac/src/main/resources/Icons/Lemonade.jpg", shopCnt, this);
 
         gameScreen.add(lemonadeStand.getContainer(), 0, 0);
+        gameScreen.add(newspaperStand.getContainer(), 0, 1);
     }
 
     @FXML
@@ -61,5 +68,9 @@ public class SecondaryController {
         }
         currentCapitalString = "$" + String.format("%.2f", currentCapital);
         currentCapitalLabel.setText(currentCapitalString);
+    }
+
+    public static void updateShopCnt(){
+        shopCnt++;
     }
 }

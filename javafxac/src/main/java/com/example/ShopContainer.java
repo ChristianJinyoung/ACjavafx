@@ -5,11 +5,13 @@ package com.example;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 
 public class ShopContainer {
@@ -32,6 +34,8 @@ public class ShopContainer {
     private String profitString = "$" + String.format("%.2f", profit);
     private String initialString = "Invest in " + shopName + "?   $" + String.format("%.2f", initialVal);
     private int shopCnt = 0;
+    private int upgradeCnt = 0;
+    private String shopString = shopName + " " + upgradeCnt + "x";
 
     private int progressSpeed = 1;
     private double progressSpeedDouble = 1.00;
@@ -41,15 +45,22 @@ public class ShopContainer {
     // public ShopContainer(String name){
         container = new VBox(10);
         container.setAlignment(Pos.CENTER);
+        // Get screen size
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        double screenWidth = screenBounds.getWidth();
+        double screenHeight = screenBounds.getHeight();
+        container.setPrefSize(screenWidth*0.48/2, 125);
+        container.setMaxWidth(screenWidth*0.48/2);
         header = new HBox(5);
+        header.setAlignment(Pos.CENTER);
         buttons = new HBox(10);
 
         //Set up container header
         imagePath = iconPath;
         // shopName = name;
         setupShopName(name);
-        shopLabel = new Label(shopName);
-        header.getChildren().add(shopLabel);
+        shopLabel = new Label(shopString);
+        // header.getChildren().add(shopLabel);
         // Image image = new Image(getClass().getResourceAsStream(iconPath));
         // InputStream inputStream = getClass().getResourceAsStream(iconPath);
         // if (inputStream == null) {
@@ -60,10 +71,13 @@ public class ShopContainer {
         // icon.setFitWidth(50);
         // icon.setFitHeight(50);
         // header.getChildren().add(icon);
+        header.getChildren().add(shopLabel);
         container.getChildren().add(header);
 
         //Set up container progress bar
         ProgressBar progressBar = new ProgressBar(0);
+        progressBar.setMaxWidth(Double.MAX_VALUE);
+        container.setAlignment(Pos.TOP_LEFT);
         container.getChildren().add(progressBar);
 
         double power = 10;
@@ -97,15 +111,20 @@ public class ShopContainer {
         profitButton = new Button("Profit for " + profitString);
         buttons.getChildren().addAll(upgradeButton, profitButton);
         container.getChildren().add(buttons);
+        upgradeButton.setPrefSize(200, 25);
+        profitButton.setPrefSize(200, 25);
 
         if(!name.equals("Lemonade")){
             header.setVisible(false);
             progressBar.setVisible(false);
             buttons.setVisible(false);
 
-            container.getChildren().remove(header);
-            container.getChildren().remove(progressBar);
-            container.getChildren().remove(buttons);
+            // container.getChildren().remove(header);
+            // container.getChildren().remove(progressBar);
+            // container.getChildren().remove(buttons);
+            header.setManaged(false);
+            progressBar.setManaged(false);
+            buttons.setManaged(false);
 
             Button initialButton = new Button(initialString);
             System.out.println(shopName + " open cost: " + initialString);
@@ -117,13 +136,20 @@ public class ShopContainer {
                     header.setVisible(true);
                     progressBar.setVisible(true);
                     buttons.setVisible(true);
-    
-                    container.getChildren().add(header);
-                    container.getChildren().add(progressBar);
-                    container.getChildren().add(buttons);
+
+                    header.setManaged(true);
+                    progressBar.setManaged(true);
+                    buttons.setManaged(true);
+
+                    // container.getChildren().add(header);
+                    // container.getChildren().add(progressBar);
+                    // container.getChildren().add(buttons);
             
                     /* Remove the "openShop" button */
+                    initialButton.setVisible(false);
+                    initialButton.setManaged(false);
                     container.getChildren().remove(initialButton);
+                    container.requestLayout();
                     //revalidate();
                     //repaint();
                 }
@@ -150,12 +176,14 @@ public class ShopContainer {
         });
 
         upgradeButton.setOnAction(e -> {
-            System.out.println(shopName + " capital: Profit: " + SecondaryController.getCapitalString() + ", Upgrade: " + upgradeString + ", Invest: " + investString);
             if(SecondaryController.getCurrentCapital() >= upgradeVal){
+                System.out.println(shopName + " capital: Profit: " + SecondaryController.getCapitalString() + ", Upgrade: " + upgradeString + ", Invest: " + investString);
                 sc.updateCurrentCapital("-", upgradeVal);
                 upgrade();
             }
         });
+
+        sc.updateShopCnt();
     }
     
     public VBox getContainer(){
@@ -168,18 +196,19 @@ public class ShopContainer {
         } else {
             shopName = name + " Store";
         }
+        shopString = shopName + " " + upgradeCnt + "x";
     }
 
     public void upgrade(){
-        shopCnt++;
-        shopLabel.setText(shopName + " " + shopCnt + "x");
+        upgradeCnt++;
+        shopLabel.setText(shopName + " " + upgradeCnt + "x");
         System.out.println(shopLabel.getText() + " upgrade Method start: Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
         updateProfit("+", (1.00));
         updateUpgrade("+", investVal);
         progressSpeedDouble += progressSpeedDouble * 0.01;
         progressSpeed = (int) Math.floor(progressSpeedDouble);
         System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
-        if(shopCnt%10 == 0 || shopCnt%25 == 0){
+        if(upgradeCnt%10 == 0 || upgradeCnt%25 == 0){
             investVal = investVal * 2.0;
             investString = "$" + String.format("%.2f", investVal);
         }
