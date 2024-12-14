@@ -18,6 +18,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 800, 600);
+        stage.setMaximized(true); // Maximize window
+        stage.setFullScreen(false);
         stage.setScene(scene);
         stage.setTitle("Adventure Capitalist");
         stage.show();

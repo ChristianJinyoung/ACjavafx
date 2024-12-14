@@ -63,10 +63,10 @@ public class ShopContainer {
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         double screenWidth = screenBounds.getWidth();
         double screenHeight = screenBounds.getHeight();
-        container.setPrefSize(screenWidth*0.48/2, 125);
-        container.setMaxWidth(screenWidth*0.48/2);
+        // container.setPrefSize(screenWidth*0.48/2, 125);
+        container.setMaxWidth(Double.MAX_VALUE);
+        // container.setPrefHeight(500);
         header = new HBox(5);
-        header.setAlignment(Pos.CENTER);
         buttons = new HBox(10);
 
         imagePath = iconPath;
@@ -107,6 +107,7 @@ public class ShopContainer {
         // icon.setFitWidth(50);
         // icon.setFitHeight(50);
         // header.getChildren().add(icon);
+        header.setAlignment(Pos.CENTER);
         header.getChildren().add(shopLabel);
         container.getChildren().add(header);
     }
@@ -114,7 +115,7 @@ public class ShopContainer {
     public void setupProgressBar(){
         progressBar = new ProgressBar(0);
         progressBar.setMaxWidth(Double.MAX_VALUE);
-        container.setAlignment(Pos.TOP_LEFT);
+        container.setAlignment(Pos.CENTER);
         container.getChildren().add(progressBar);
     }
 
@@ -151,6 +152,7 @@ public class ShopContainer {
         container.getChildren().add(buttons);
         upgradeButton.setPrefSize(200, 25);
         profitButton.setPrefSize(200, 25);
+        buttons.setAlignment(Pos.CENTER);
 
         if(!shopName.equals("Lemonade Stand")){
             header.setVisible(false);

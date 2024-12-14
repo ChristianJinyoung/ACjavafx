@@ -2,7 +2,9 @@ package com.example;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 
 public class SecondaryController {
@@ -64,10 +66,17 @@ public class SecondaryController {
             "Autonomous Robot Manufacturer", "Quantum Computer Manufacturer", "Space Exploration Ventures"
         };
 
+        for (int col = 0; col < 2; col++) {
+            ColumnConstraints colConstraints = new ColumnConstraints();
+            colConstraints.setPercentWidth(50); // Each column gets 50% width
+            gameScreen.getColumnConstraints().add(colConstraints);
+        }
+
         for (int i = 0; i < shopNames.length; i++) {
             ShopContainer shop = new ShopContainer(shopNames[i], (i + 1) + ".jpg", shopCnt, this);
             shopArr[i] = shop;
-            gameScreen.add(shop.getContainer(), shopCnt / rows, shopCnt % rows);
+            gameScreen.add(shop.getContainer(), i%2, i/2);
+            GridPane.setHgrow(shop.getContainer(), Priority.ALWAYS);
             shopCnt++;
         }
     }
