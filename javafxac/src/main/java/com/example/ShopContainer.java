@@ -1,7 +1,6 @@
 package com.example;
 
-// import java.time.Duration;
-
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -297,6 +296,15 @@ public class ShopContainer {
     }
 
     public void setHired(){
+        System.out.println(this.shopName + " manager hired!");
         hired = true;
+
+        if (progressTimer.getStatus() != Animation.Status.RUNNING) {
+            progressTimer.playFromStart();
+        }
+    }
+
+    public boolean getHired(){
+        return hired;
     }
 }

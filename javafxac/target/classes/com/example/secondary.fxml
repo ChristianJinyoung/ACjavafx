@@ -32,6 +32,12 @@
             </GridPane>
         </ScrollPane>
     </center>
+
+    <left>
+        <VBox fx:id="leftSideBar" spacing="20.0">
+            <Button fx:id="managersButton" text="Hire Managers" onAction="#handleManagers"/>
+        </VBox>
+    </left>
     <padding>
         <Insets bottom="0.0" left="20.0" right="20.0" top="0.0" />
     </padding>
