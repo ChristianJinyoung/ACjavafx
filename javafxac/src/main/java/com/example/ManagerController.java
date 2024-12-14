@@ -13,6 +13,8 @@ public class ManagerController {
     private Button closeManagerButton;
     @FXML
     private Button lemonadeHireButton;
+    @FXML
+    private Button newspaperHireButton;
 
     private SecondaryController sc;
 
@@ -42,6 +44,11 @@ public class ManagerController {
     @FXML
     private void handleLemonadeHire(){
         sc.hireManager("shop1");
+    }
+
+    @FXML
+    private void handleNewspaperHire(){
+        sc.hireManager("shop2");
     }
 
     public void addSC(SecondaryController sc){

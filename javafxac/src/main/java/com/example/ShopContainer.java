@@ -49,6 +49,7 @@ public class ShopContainer {
     private Timeline progressTimer;
 
     private boolean hired = false;
+    private double managerWage = 100.00;
 
     private SecondaryController sc;
 
@@ -129,6 +130,7 @@ public class ShopContainer {
             progressSpeed = 2;
             progressSpeedDouble = 2.00;
             profitIncrease = 1.00;
+            managerWage = 100.00;
         } else {
             progressSpeed = 1;
             progressSpeedDouble = 1.00;
@@ -136,7 +138,8 @@ public class ShopContainer {
             upgradeVal = initialVal/(shopCnt*shopCnt*10);
             investVal = upgradeVal/(shopCnt*10.0);
             initialInvest = investVal;
-            profitIncrease = upgradeVal;;
+            profitIncrease = upgradeVal;
+            managerWage = initialVal*50.0;
         }
         profitString = "$" + String.format("%.2f", profit);
         upgradeString = "$" + String.format("%.2f", upgradeVal);
@@ -308,5 +311,9 @@ public class ShopContainer {
 
     public boolean getHired(){
         return hired;
+    }
+
+    public double getManagerWage(){
+        return managerWage;
     }
 }

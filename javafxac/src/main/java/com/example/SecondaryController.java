@@ -48,7 +48,7 @@ public class SecondaryController {
     // @FXML
     public void initialize() {
         if(testing){
-            updateCurrentCapital("+", 10000.00);
+            updateCurrentCapital("+", 10000000000.00);
         }
 
         currentCapitalLabel.setText("Current Capital: " + currentCapitalString);
@@ -133,7 +133,8 @@ public class SecondaryController {
     public void hireManager(String shop){
         for(int i = 1; i < 21; i++){
             if(shop.equals("shop" + i)){
-                if(!shopArr[i-1].getHired()){
+                if(!shopArr[i-1].getHired() && currentCapital >= shopArr[i-1].getManagerWage()){
+                    updateCurrentCapital("-", shopArr[i-1].getManagerWage());
                     shopArr[i-1].setHired();
                 }
                 break;

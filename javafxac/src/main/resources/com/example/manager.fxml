@@ -11,6 +11,7 @@
         <!-- Add more controls for settings (e.g., sliders, checkboxes, etc.) -->
         <Button fx:id="closeManagerButton" text="Close" onAction="#handleManagerClose" />
         <Button fx:id="lemonadeHireButton" text="Lemonade Stand Manager" onAction="#handleLemonadeHire"/>
+        <Button fx:id="newspaperHireButton" text="Newspaper Stand Manager" onAction="#handleNewspaperHire"/>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
