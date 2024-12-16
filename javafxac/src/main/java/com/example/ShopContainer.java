@@ -30,6 +30,7 @@ public class ShopContainer {
 
     private Button upgradeButton;
     private Button profitButton;
+    private Button initialButton;
     private double profit;
     private double upgradeVal;
     private double initialInvest;
@@ -170,10 +171,20 @@ public class ShopContainer {
         profitButton.setPrefSize(200, 25);
         buttons.setAlignment(Pos.CENTER);
 
+        initialButton = new Button(initialString);
+        initialButton.setPrefSize(400, 100);
+        initialButton.setAlignment(Pos.CENTER);
+
         if(sc.getCurrentCapital() < upgradeVal){
             upgradeButton.setDisable(true);
         } else {
             upgradeButton.setDisable(false);
+        }
+
+        if(sc.getCurrentCapital() < initialVal){
+            initialButton.setDisable(true);
+        }else{
+            initialButton.setDisable(false);
         }
 
         if(!shopName.equals("Lemonade Stand")){
@@ -185,9 +196,7 @@ public class ShopContainer {
             progressBar.setManaged(false);
             buttons.setManaged(false);
 
-            Button initialButton = new Button(initialString);
-            initialButton.setPrefSize(400, 100);
-            initialButton.setAlignment(Pos.CENTER);
+            
             // System.out.println(shopName + " open cost: " + initialString);
 
             container.setVgrow(initialButton, Priority.ALWAYS);
@@ -353,6 +362,10 @@ public class ShopContainer {
         return upgradeVal;
     }
 
+    public Double getInitialVal(){
+        return initialVal;
+    }
+
     /*private String investString = "$" + String.format("%.2f", investVal);
     private String upgradeString = "$" + String.format("%.2f", upgradeVal);
     private String profitString = "$" + String.format("%.2f", profit); */
@@ -454,5 +467,13 @@ public class ShopContainer {
 
     public void hideUpgrade(){
         upgradeButton.setDisable(true);
+    }
+
+    public void showInitial(){
+        initialButton.setDisable(false);
+    }
+
+    public void hideInitial(){
+        initialButton.setDisable(true);
     }
 }

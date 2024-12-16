@@ -22,7 +22,7 @@ public class SecondaryController {
 
     ManagerController managerController;
 
-    private static boolean testing = false;
+    private static boolean testing = true;
 
     ShopContainer[] shopArr = new ShopContainer[20];
 
@@ -193,6 +193,18 @@ public class SecondaryController {
                     shopArr[i].showUpgrade();
                 } else {
                     shopArr[i].hideUpgrade();
+                }
+            }
+        }
+    }
+
+    public void showInitial(){
+        for(int i = 0; i < shopArr.length; i++){
+            if(shopArr[i] != null && !shopArr[i].getInvested()){
+                if(currentCapital >= shopArr[i].getInitialVal()){
+                    shopArr[i].showInitial();
+                }else{
+                    shopArr[i].hideInitial();
                 }
             }
         }
