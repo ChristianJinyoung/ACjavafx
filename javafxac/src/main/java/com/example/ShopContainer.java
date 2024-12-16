@@ -39,7 +39,7 @@ public class ShopContainer {
     private String investString = "$" + String.format("%.2f", investVal);
     private String upgradeString = "$" + String.format("%.2f", upgradeVal);
     private String profitString = "$" + String.format("%.2f", profit);
-    private String initialString = "Invest in " + shopName + "?   $" + String.format("%.2f", initialVal);
+    private String initialString;
     private int upgradeCnt = 0;
     private String shopString = shopName + " " + upgradeCnt + "x";
     private Timeline upgradeRepeatTimeline;
@@ -80,7 +80,7 @@ public class ShopContainer {
             power *= 10;
         }
         initialVal = num*(power);
-        initialString = "Invest in " + shopName + "?   $" + String.format("%.2f", initialVal);
+        // initialString = setInitialString();
 
         // //Set up container header
         setupHeader();
@@ -127,7 +127,7 @@ public class ShopContainer {
             profit = 1.00;
             upgradeVal = 2.00;
             investVal = upgradeVal/10.0;
-            initialInvest = investVal;
+            initialInvest = initialVal;
             progressSpeed = 2;
             progressSpeedDouble = 2.00;
             profitIncrease = 1.00;
@@ -139,7 +139,7 @@ public class ShopContainer {
             profit = initialVal/2.0;
             upgradeVal = initialVal/(shopCnt*shopCnt*10);
             investVal = upgradeVal/(shopCnt*10.0);
-            initialInvest = investVal;
+            initialInvest = initialVal;
             profitIncrease = upgradeVal;
             managerWage = initialVal*50.0;
             invested = false;
@@ -147,8 +147,10 @@ public class ShopContainer {
         profitString = "$" + String.format("%.2f", profit);
         upgradeString = "$" + String.format("%.2f", upgradeVal);
         investString = "$" + String.format("%.2f", investVal);
-        System.out.println("shopName: " + shopName + ", openVal: " + initialString);
-        System.out.println("Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + "\n");
+        System.out.println("\nshopName: " + shopName);
+        initialString = setInitialString();
+        System.out.println("setup initialString: " + initialString + ", initial Val: " + initialVal);
+        System.out.println("Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString  + ", InvestValue: " + investVal);
 
         upgradeButton = new Button("Upgrade for " + upgradeString);
         profitButton = new Button("Profit for " + profitString);
@@ -172,7 +174,7 @@ public class ShopContainer {
             Button initialButton = new Button(initialString);
             initialButton.setPrefSize(400, 100);
             initialButton.setAlignment(Pos.CENTER);
-            System.out.println(shopName + " open cost: " + initialString);
+            // System.out.println(shopName + " open cost: " + initialString);
 
             container.setVgrow(initialButton, Priority.ALWAYS);
             container.getChildren().add(initialButton);
@@ -264,7 +266,7 @@ public class ShopContainer {
             updateUpgrade("+", investVal);
             progressSpeedDouble += progressSpeedDouble * 0.05;
             progressSpeed = (int) Math.floor(progressSpeedDouble);
-            System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
+            System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ",InvestValue: " + investVal + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
             if(upgradeCnt%10 == 0){
                 investVal *= 2.0;
                 investString = "$" + String.format("%.2f", investVal);
@@ -325,5 +327,40 @@ public class ShopContainer {
 
     public boolean getInvested(){
         return invested;
+    }
+
+    /*private String investString = "$" + String.format("%.2f", investVal);
+    private String upgradeString = "$" + String.format("%.2f", upgradeVal);
+    private String profitString = "$" + String.format("%.2f", profit); */
+    public String setInitialString(){
+        String[] suffixes = {
+            "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
+            "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
+            "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
+        };
+    
+        // Convert the initial value to a scaled-down version
+        double investRem = initialVal;
+        int investMetric = 0;
+    
+        while (investRem >= 1000 && investMetric < suffixes.length - 1) {
+            investRem /= 1000;
+            investMetric++;
+        }
+    
+        // Get the appropriate suffix
+        String investPrefix = suffixes[investMetric];
+    
+        // Format the result
+        String result = "\nInvest in " + shopName + "?   $" + String.format("%.3f", investRem) + investPrefix;
+    
+        // Debug output (remove in production)
+        System.out.println("initialVal: " + initialVal 
+            + ", investRem: " + investRem 
+            + ", investMetric: " + investMetric 
+            + ", investPrefix: " + investPrefix);
+        System.out.println("Result: " + result);
+    
+        return result;
     }
 }
