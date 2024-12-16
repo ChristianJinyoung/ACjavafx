@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class ManagerController {
@@ -35,6 +36,13 @@ public class ManagerController {
         stage.close();
     }
 
+    @FXML
+    public void initialize() {
+        // Get the screen height and set the ScrollPane height
+        double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+        managerPane.setPrefHeight(screenHeight*0.75);
+    }
+
     public void showManagerTab() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("manager.fxml"));
@@ -48,17 +56,29 @@ public class ManagerController {
             stage.setTitle("Managers");
             stage.setScene(new Scene(root));
 
-            stage.setOnCloseRequest(event -> {
-                // Do any cleanup here before closing if needed
-                handleManagerClose();
-            });
+            // stage.getScene().addEventFilter(javafx.scene.input.MouseEvent.MOUSE_PRESSED, event -> {
+            //     if (!root.isHover()) {
+            //         stage.close();
+            //     }
+            // });
 
-            stage.getScene().setOnMouseClicked(event -> {
-                if (event.getTarget() != stage.getScene()) {
-                    // Close the window when the mouse click happens outside the window's controls
+            stage.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue) {
                     stage.close();
                 }
             });
+
+
+            stage.setOnCloseRequest(event -> {
+                handleManagerClose();
+            });
+
+            // stage.getScene().setOnMouseClicked(event -> {
+            //     if (event.getTarget() != stage.getScene()) {
+            //         // Close the window when the mouse click happens outside the window's controls
+            //         stage.close();
+            //     }
+            // });
 
             stage.show();  // Show the settings window
         } catch (Exception e) {
