@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -12,6 +13,8 @@ public class ManagerController {
 
     private Button[] hireButtons = new Button[20];
 
+    @FXML
+    private ScrollPane managerPane;
     @FXML
     private Button closeManagerButton;
     @FXML
@@ -80,7 +83,7 @@ public class ManagerController {
 
             managerBox.getChildren().add(hireButtons[i]);
 
-            if(!shops[i].getInvested()){
+            if(!shops[i].getInvested() || shops[i].getHired()){
                 hireButtons[i].setDisable(true);
             }
         }

@@ -221,9 +221,9 @@ public class ShopContainer {
                 }
             }
         }));
+        progressTimer.setCycleCount(Timeline.INDEFINITE);
 
         profitButton.setOnAction(e -> {
-            progressTimer.setCycleCount(Timeline.INDEFINITE);
             progressTimer.play();
         });
 
@@ -305,11 +305,13 @@ public class ShopContainer {
     }
 
     public void setHired(){
-        System.out.println(this.shopName + " manager hired!");
-        hired = true;
+        if(!hired){
+            System.out.println(this.shopName + " manager hired!");
+            hired = true;
 
-        if (progressTimer.getStatus() != Animation.Status.RUNNING) {
-            progressTimer.playFromStart();
+            if (progressTimer.getStatus() != Animation.Status.RUNNING) {
+                progressTimer.play();
+            }
         }
     }
 
