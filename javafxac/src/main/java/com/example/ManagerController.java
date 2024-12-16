@@ -23,6 +23,12 @@ public class ManagerController {
     private SecondaryController sc;
     private ShopContainer[] shops;
 
+    private String[] suffixes = {
+        "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
+        "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
+        "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
+    };
+
     @FXML
     private void handleManagerClose() {
         Stage stage = (Stage) closeManagerButton.getScene().getWindow();
@@ -75,7 +81,8 @@ public class ManagerController {
         };
         
         for(int i = 0; i < 20; i++){
-            Button button = new Button("Hire " + shopNames[i] + " manager for $" + shops[i].getManagerWage());
+            Button button = new Button(getManagerString(shops[i]));
+
             hireButtons[i] = button;
 
             final int index = i;
@@ -104,5 +111,38 @@ public class ManagerController {
             hireButtons[index].setDisable(true);
         }
         // System.out.println("Hiring manager for shop " + (index + 1));
+    }
+
+    public String getManagerString(ShopContainer shop){
+        // Convert the initial value to a scaled-down version
+        double rem = shop.getManagerWage();
+        int metric = 0;
+    
+        while (rem >= 1000 && metric < suffixes.length - 1) {
+            rem /= 1000;
+            metric++;
+        }
+    
+        // Get the appropriate suffix
+        String prefix = suffixes[metric];
+    
+        // Format the result
+        // String result = "\nInvest in " + shopName + "?   $" + String.format("%.3f", investRem) + investPrefix;
+        String result;
+        if(metric == 0){
+            // result = "Current Capital: $" + String.format("%.2f", rem) + prefix;
+            result = "Hire " + shop.getName() + " Manager for $" + String.format("%.2f", rem) + prefix;
+        }else{
+            result = "Hire " + shop.getName() + " Manager for $" + String.format("%.2f", rem) + prefix;
+        }
+    
+        // Debug output (remove in production)
+        System.out.println("Upgrade: " + shop.getName() 
+            + ", upgradeRem: " + rem 
+            + ", upgradeMetric: " + metric 
+            + ", upgradePrefix: " + prefix);
+        System.out.println("Result: " + result);
+    
+        return result;
     }
 }

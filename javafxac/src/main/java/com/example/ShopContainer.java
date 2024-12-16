@@ -339,6 +339,10 @@ public class ShopContainer {
         return invested;
     }
 
+    public String getName(){
+        return shopName;
+    }
+
     /*private String investString = "$" + String.format("%.2f", investVal);
     private String upgradeString = "$" + String.format("%.2f", upgradeVal);
     private String profitString = "$" + String.format("%.2f", profit); */
