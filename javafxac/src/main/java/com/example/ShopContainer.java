@@ -156,10 +156,10 @@ public class ShopContainer {
         // upgradeString = "$" + String.format("%.2f", upgradeVal);
         upgradeString = setUpgradeString();
         investString = "$" + String.format("%.2f", investVal);
-        System.out.println("\nshopName: " + shopName);
+        // System.out.println("\nshopName: " + shopName);
         initialString = setInitialString();
-        System.out.println("setup initialString: " + initialString + ", initial Val: " + initialVal);
-        System.out.println("Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString  + ", InvestValue: " + investVal);
+        // System.out.println("setup initialString: " + initialString + ", initial Val: " + initialVal);
+        // System.out.println("Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString  + ", InvestValue: " + investVal);
 
         upgradeButton = new Button(upgradeString);
         profitButton = new Button(profitString);
@@ -280,7 +280,7 @@ public class ShopContainer {
 
     public void upgrade(){
         if(sc.getCurrentCapital() >= upgradeVal){
-            System.out.println("update");
+            // System.out.println("update");
             sc.updateCurrentCapital("-", upgradeVal);
             upgradeCnt++;
             shopLabel.setText(shopName + " " + upgradeCnt + "x");
@@ -333,7 +333,7 @@ public class ShopContainer {
 
     public void setHired(){
         if(!hired){
-            System.out.println(this.shopName + " manager hired!");
+            // System.out.println(this.shopName + " manager hired!");
             hired = true;
 
             if (progressTimer.getStatus() != Animation.Status.RUNNING) {

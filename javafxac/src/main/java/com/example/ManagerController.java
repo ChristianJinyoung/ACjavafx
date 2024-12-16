@@ -88,7 +88,7 @@ public class ManagerController {
 
     public void setupHireButtons(){
         if (managerBox == null) {
-            System.err.println("Error: managerBox is null!");
+            // System.err.println("Error: managerBox is null!");
             return;
         }
 
@@ -138,7 +138,8 @@ public class ManagerController {
     @FXML
     private void handleHire(int index){
         if(sc.hireManager("shop" + (index + 1))){
-            hireButtons[index].setDisable(true);
+            hireButtons[index].setVisible(false);
+            managerBox.getChildren().remove(hireButtons[index]);
         }
         // System.out.println("Hiring manager for shop " + (index + 1));
     }
@@ -167,11 +168,11 @@ public class ManagerController {
         }
     
         // Debug output (remove in production)
-        System.out.println("Upgrade: " + shop.getName() 
-            + ", upgradeRem: " + rem 
-            + ", upgradeMetric: " + metric 
-            + ", upgradePrefix: " + prefix);
-        System.out.println("Result: " + result);
+        // System.out.println("Upgrade: " + shop.getName() 
+        //     + ", upgradeRem: " + rem 
+        //     + ", upgradeMetric: " + metric 
+        //     + ", upgradePrefix: " + prefix);
+        // System.out.println("Result: " + result);
     
         return result;
     }

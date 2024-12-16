@@ -22,7 +22,7 @@ public class SecondaryController {
 
     ManagerController managerController;
 
-    private static boolean testing = true;
+    private static boolean testing = false;
 
     ShopContainer[] shopArr = new ShopContainer[20];
 
