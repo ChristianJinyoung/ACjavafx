@@ -15,7 +15,7 @@ public class SecondaryController {
     private GridPane gameScreen;
 
     private static double currentCapital = 0.00;
-    private static String currentCapitalString = "$" + String.format("%.2f", currentCapital);
+    private static String currentCapitalString;
     private static int shopCnt = 0;
     private static int rows = 10;
 
@@ -24,6 +24,12 @@ public class SecondaryController {
     private static boolean testing = true;
 
     ShopContainer[] shopArr = new ShopContainer[20];
+
+    private String[] suffixes = {
+        "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
+        "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
+        "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
+    };
 
     // @FXML
     public void initialize() {
@@ -102,7 +108,7 @@ public class SecondaryController {
         } else if(operation.equals("/")){
             currentCapital /= val;
         }
-        currentCapitalString = "$" + String.format("%.2f", currentCapital);
+        currentCapitalString = setCapitalString();
         currentCapitalLabel.setText("Current Capital: " + currentCapitalString);
     }
 
@@ -126,5 +132,37 @@ public class SecondaryController {
 
     public ShopContainer[] getShopArr(){
         return shopArr;
+    }
+
+    public String setCapitalString(){
+        // Convert the initial value to a scaled-down version
+        double rem = currentCapital;
+        int metric = 0;
+    
+        while (rem >= 1000 && metric < suffixes.length - 1) {
+            rem /= 1000;
+            metric++;
+        }
+    
+        // Get the appropriate suffix
+        String prefix = suffixes[metric];
+    
+        // Format the result
+        // String result = "\nInvest in " + shopName + "?   $" + String.format("%.3f", investRem) + investPrefix;
+        String result;
+        if(metric == 0){
+            result = "Current Capital: $" + String.format("%.2f", rem) + prefix;
+        }else{
+            result = "Current Capital: $" + String.format("%.3f", rem) + prefix;
+        }
+    
+        // Debug output (remove in production)
+        System.out.println("Upgrade: " + currentCapital 
+            + ", upgradeRem: " + rem 
+            + ", upgradeMetric: " + metric 
+            + ", upgradePrefix: " + prefix);
+        System.out.println("Result: " + result);
+    
+        return result;
     }
 }

@@ -36,9 +36,9 @@ public class ShopContainer {
     private double investVal;
     private double initialVal;
     private double profitIncrease;
-    private String investString = "$" + String.format("%.2f", investVal);
-    private String upgradeString = "$" + String.format("%.2f", upgradeVal);
-    private String profitString = "$" + String.format("%.2f", profit);
+    private String investString;
+    private String upgradeString;
+    private String profitString;
     private String initialString;
     private int upgradeCnt = 0;
     private String shopString = shopName + " " + upgradeCnt + "x";
@@ -53,6 +53,12 @@ public class ShopContainer {
     private boolean invested = false;
 
     private SecondaryController sc;
+
+    private String[] suffixes = {
+        "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
+        "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
+        "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
+    };
 
     public ShopContainer(String name, String iconPath, int num, SecondaryController sc){
         this.sc = sc;
@@ -144,16 +150,18 @@ public class ShopContainer {
             managerWage = initialVal*50.0;
             invested = false;
         }
-        profitString = "$" + String.format("%.2f", profit);
-        upgradeString = "$" + String.format("%.2f", upgradeVal);
+        // profitString = "$" + String.format("%.2f", profit);
+        profitString = setProfitString();
+        // upgradeString = "$" + String.format("%.2f", upgradeVal);
+        upgradeString = setUpgradeString();
         investString = "$" + String.format("%.2f", investVal);
         System.out.println("\nshopName: " + shopName);
         initialString = setInitialString();
         System.out.println("setup initialString: " + initialString + ", initial Val: " + initialVal);
         System.out.println("Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString  + ", InvestValue: " + investVal);
 
-        upgradeButton = new Button("Upgrade for " + upgradeString);
-        profitButton = new Button("Profit for " + profitString);
+        upgradeButton = new Button(upgradeString);
+        profitButton = new Button(profitString);
         upgradeButton.setStyle("-fx-alignment: center;");
         profitButton.setStyle("-fx-alignment: center;");
         buttons.getChildren().addAll(upgradeButton, profitButton);
@@ -288,7 +296,8 @@ public class ShopContainer {
         } else if(operation.equals("/")){
             profit /= val;
         }
-        profitString = "$" + String.format("%.2f", profit);
+        // profitString = "$" + String.format("%.2f", profit);
+        profitString = setProfitString();
         profitButton.setText("Profit for " + profitString);
     }
 
@@ -302,7 +311,8 @@ public class ShopContainer {
         } else if(operation.equals("/")){
             upgradeVal /= val;
         }
-        upgradeString = "$" + String.format("%.2f", upgradeVal);
+        // upgradeString = "$" + String.format("%.2f", upgradeVal);
+        upgradeString = setUpgradeString();
         upgradeButton.setText("Upgrade for " + upgradeString);
     }
 
@@ -333,12 +343,7 @@ public class ShopContainer {
     private String upgradeString = "$" + String.format("%.2f", upgradeVal);
     private String profitString = "$" + String.format("%.2f", profit); */
     public String setInitialString(){
-        String[] suffixes = {
-            "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
-            "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
-            "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
-        };
-    
+   
         // Convert the initial value to a scaled-down version
         double investRem = initialVal;
         int investMetric = 0;
@@ -359,6 +364,71 @@ public class ShopContainer {
             + ", investRem: " + investRem 
             + ", investMetric: " + investMetric 
             + ", investPrefix: " + investPrefix);
+        System.out.println("Result: " + result);
+    
+        return result;
+    }
+
+    public String setProfitString(){
+        // Convert the initial value to a scaled-down version
+        double profitRem = profit;
+        int profitMetric = 0;
+    
+        while (profitRem >= 1000 && profitMetric < suffixes.length - 1) {
+            profitRem /= 1000;
+            profitMetric++;
+        }
+    
+        // Get the appropriate suffix
+        String profitPrefix = suffixes[profitMetric];
+    
+        // Format the result
+        // String result = "\nInvest in " + shopName + "?   $" + String.format("%.3f", investRem) + investPrefix;
+        
+        String result;
+        if(profitMetric == 0){
+            result = "Profit for $" + String.format("%.2f", profitRem) + profitPrefix;
+        } else {
+            result = "Profit for $" + String.format("%.3f", profitRem) + profitPrefix;
+        }
+    
+        // Debug output (remove in production)
+        System.out.println("Profit: " + profit 
+            + ", profitRem: " + profitRem 
+            + ", profitMetric: " + profitMetric 
+            + ", profitPrefix: " + profitPrefix);
+        System.out.println("Result: " + result);
+    
+        return result;
+    }
+
+    public String setUpgradeString(){
+        // Convert the initial value to a scaled-down version
+        double rem = profit;
+        int metric = 0;
+    
+        while (rem >= 1000 && metric < suffixes.length - 1) {
+            rem /= 1000;
+            metric++;
+        }
+    
+        // Get the appropriate suffix
+        String prefix = suffixes[metric];
+    
+        // Format the result
+        // String result = "\nInvest in " + shopName + "?   $" + String.format("%.3f", investRem) + investPrefix;
+        String result;
+        if(metric == 0){
+            result = "Upgrade for $" + String.format("%.2f", rem) + prefix;
+        }else{
+            result = "Upgrade for $" + String.format("%.3f", rem) + prefix;
+        }
+    
+        // Debug output (remove in production)
+        System.out.println("Upgrade: " + upgradeVal 
+            + ", upgradeRem: " + rem 
+            + ", upgradeMetric: " + metric 
+            + ", upgradePrefix: " + prefix);
         System.out.println("Result: " + result);
     
         return result;
