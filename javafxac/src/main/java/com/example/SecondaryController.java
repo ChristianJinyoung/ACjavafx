@@ -70,6 +70,8 @@ public class SecondaryController {
         }
 
         showUpgrade();
+        managerController = new ManagerController();
+        managerController.addSC(this);
     }
 
     @FXML
@@ -86,8 +88,8 @@ public class SecondaryController {
 
     @FXML
     private void handleManagers(){
-        managerController = new ManagerController();
-        managerController.addSC(this);
+        // managerController = new ManagerController();
+        // managerController.addSC(this);
         managerController.showManagerTab();
     }
 
@@ -124,6 +126,7 @@ public class SecondaryController {
         currentCapitalLabel.setText(currentCapitalString);
 
         showUpgrade();
+        showInitial();
     }
 
     public static void updateShopCnt(){
@@ -175,11 +178,11 @@ public class SecondaryController {
         
     
         // Debug output (remove in production)
-        System.out.println("Upgrade: " + currentCapital 
-            + ", upgradeRem: " + rem 
-            + ", upgradeMetric: " + metric 
-            + ", upgradePrefix: " + prefix);
-        System.out.println("Result: " + result);
+        // System.out.println("Upgrade: " + currentCapital 
+        //     + ", upgradeRem: " + rem 
+        //     + ", upgradeMetric: " + metric 
+        //     + ", upgradePrefix: " + prefix);
+        // System.out.println("Result: " + result);
 
         capitalMetric = metric;
     
@@ -205,6 +208,18 @@ public class SecondaryController {
                     shopArr[i].showInitial();
                 }else{
                     shopArr[i].hideInitial();
+                }
+            }
+        }
+    }
+
+    public void showHire(){
+        for(int i = 0; i < shopArr.length; i++){
+            if((shopArr[i] != null) && shopArr[i].getInvested()){
+                if(currentCapital >= shopArr[i].getManagerWage()){
+                    managerController.showHire(i);
+                }else{
+                    managerController.hideHire(i);
                 }
             }
         }

@@ -239,7 +239,7 @@ public class ShopContainer {
             } else {
                 // Stop the timer once progress is complete
                 sc.updateCurrentCapital("+", profit);
-                System.out.println("capital: " + SecondaryController.getCurrentCapital() + ", capitalString: " + SecondaryController.getCapitalString() + ", capitalLabel: " + sc.getCapitalLabel().getText());
+                // System.out.println("capital: " + SecondaryController.getCurrentCapital() + ", capitalString: " + SecondaryController.getCapitalString() + ", capitalLabel: " + sc.getCapitalLabel().getText());
                 progressBar.setProgress(0); // Reset progress
                 if(!hired){
                     progressTimer.stop(); // Stop the timeline
@@ -268,8 +268,8 @@ public class ShopContainer {
 
     private void upgradeRepeat(){
         if(SecondaryController.getCurrentCapital() >= upgradeVal){
-            System.out.println("upgradeRepeat");
-            System.out.println(shopName + " capital: Profit: " + SecondaryController.getCapitalString() + ", Upgrade: " + upgradeString + ", Invest: " + investString);
+            // System.out.println("upgradeRepeat");
+            // System.out.println(shopName + " capital: Profit: " + SecondaryController.getCapitalString() + ", Upgrade: " + upgradeString + ", Invest: " + investString);
             upgrade();
         }
     }
@@ -284,12 +284,12 @@ public class ShopContainer {
             sc.updateCurrentCapital("-", upgradeVal);
             upgradeCnt++;
             shopLabel.setText(shopName + " " + upgradeCnt + "x");
-            System.out.println(shopLabel.getText() + " upgrade Method start: Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
+            // System.out.println(shopLabel.getText() + " upgrade Method start: Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
             updateProfit("+", profitIncrease);
             updateUpgrade("+", investVal);
             progressSpeedDouble += progressSpeedDouble * 0.05;
             progressSpeed = (int) Math.floor(progressSpeedDouble);
-            System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ",InvestValue: " + investVal + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
+            // System.out.println(shopLabel.getText() + " upgrade Method end:  Profit: " + profitString + ", Upgrade: " + upgradeString + ", Invest: " + investString + ",InvestValue: " + investVal + ", Speed: " + progressSpeed + ", speedDouble: " + progressSpeedDouble);
             if(upgradeCnt%10 == 0){
                 investVal *= 2.0;
                 investString = "$" + String.format("%.2f", investVal);
@@ -387,11 +387,11 @@ public class ShopContainer {
         String result = "\nInvest in " + shopName + "?   $" + String.format("%.3f", investRem) + investPrefix;
     
         // Debug output (remove in production)
-        System.out.println("initialVal: " + initialVal 
-            + ", investRem: " + investRem 
-            + ", investMetric: " + investMetric 
-            + ", investPrefix: " + investPrefix);
-        System.out.println("Result: " + result);
+        // System.out.println("initialVal: " + initialVal 
+        //     + ", investRem: " + investRem 
+        //     + ", investMetric: " + investMetric 
+        //     + ", investPrefix: " + investPrefix);
+        // System.out.println("Result: " + result);
     
         return result;
     }
@@ -420,11 +420,11 @@ public class ShopContainer {
         }
     
         // Debug output (remove in production)
-        System.out.println("Profit: " + profit 
-            + ", profitRem: " + profitRem 
-            + ", profitMetric: " + profitMetric 
-            + ", profitPrefix: " + profitPrefix);
-        System.out.println("Result: " + result);
+        // System.out.println("Profit: " + profit 
+        //     + ", profitRem: " + profitRem 
+        //     + ", profitMetric: " + profitMetric 
+        //     + ", profitPrefix: " + profitPrefix);
+        // System.out.println("Result: " + result);
     
         return result;
     }
@@ -452,11 +452,11 @@ public class ShopContainer {
         }
     
         // Debug output (remove in production)
-        System.out.println("Upgrade: " + upgradeVal 
-            + ", upgradeRem: " + rem 
-            + ", upgradeMetric: " + metric 
-            + ", upgradePrefix: " + prefix);
-        System.out.println("Result: " + result);
+        // System.out.println("Upgrade: " + upgradeVal 
+        //     + ", upgradeRem: " + rem 
+        //     + ", upgradeMetric: " + metric 
+        //     + ", upgradePrefix: " + prefix);
+        // System.out.println("Result: " + result);
     
         return result;
     }

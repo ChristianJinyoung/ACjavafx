@@ -113,6 +113,16 @@ public class ManagerController {
             if(!shops[i].getInvested() || shops[i].getHired()){
                 hireButtons[i].setVisible(false);
             }
+            if(shops[i].getInvested() && !shops[i].getHired()){
+                // System.out.println("DEBUG1 " + sc.getCurrentCapital() + " " + shops[i].getManagerWage());
+                if(sc.getCurrentCapital() < shops[i].getManagerWage()){
+                    hireButtons[i].setDisable(true);
+                    // System.out.println("DEBUG2");
+                }else{
+                    hireButtons[i].setDisable(false);
+                    // System.out.println("DEBUG3");
+                }
+            }
         }
     }
 
@@ -164,5 +174,13 @@ public class ManagerController {
         System.out.println("Result: " + result);
     
         return result;
+    }
+
+    public void showHire(int index){
+        hireButtons[index].setDisable(false);
+    }
+
+    public void hideHire(int index){
+        hireButtons[index].setDisable(true);
     }
 }
