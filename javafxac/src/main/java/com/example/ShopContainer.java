@@ -50,6 +50,7 @@ public class ShopContainer {
 
     private boolean hired = false;
     private double managerWage = 100.00;
+    private boolean invested = false;
 
     private SecondaryController sc;
 
@@ -131,6 +132,7 @@ public class ShopContainer {
             progressSpeedDouble = 2.00;
             profitIncrease = 1.00;
             managerWage = 100.00;
+            invested = true;
         } else {
             progressSpeed = 1;
             progressSpeedDouble = 1.00;
@@ -140,6 +142,7 @@ public class ShopContainer {
             initialInvest = investVal;
             profitIncrease = upgradeVal;
             managerWage = initialVal*50.0;
+            invested = false;
         }
         profitString = "$" + String.format("%.2f", profit);
         upgradeString = "$" + String.format("%.2f", upgradeVal);
@@ -177,6 +180,7 @@ public class ShopContainer {
             initialButton.setOnAction(e -> {
                 /* Make components visible */
                 if (SecondaryController.getCurrentCapital() >= initialVal) {
+                    invested = true;
                     sc.updateCurrentCapital("-", initialVal);
                     header.setVisible(true);
                     progressBar.setVisible(true);
@@ -315,5 +319,9 @@ public class ShopContainer {
 
     public double getManagerWage(){
         return managerWage;
+    }
+
+    public boolean getInvested(){
+        return invested;
     }
 }

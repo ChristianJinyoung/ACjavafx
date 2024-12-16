@@ -24,26 +24,6 @@ public class SecondaryController {
     private static boolean testing = true;
 
     ShopContainer[] shopArr = new ShopContainer[20];
-    ShopContainer shop1;
-    ShopContainer shop2;
-    ShopContainer shop3;
-    ShopContainer shop4;
-    ShopContainer shop5;
-    ShopContainer shop6;
-    ShopContainer shop7;
-    ShopContainer shop8;
-    ShopContainer shop9;
-    ShopContainer shop10;
-    ShopContainer shop11;
-    ShopContainer shop12;
-    ShopContainer shop13;
-    ShopContainer shop14;
-    ShopContainer shop15;
-    ShopContainer shop16;
-    ShopContainer shop17;
-    ShopContainer shop18;
-    ShopContainer shop19;
-    ShopContainer shop20;
 
     // @FXML
     public void initialize() {
@@ -59,9 +39,9 @@ public class SecondaryController {
     public void setupShops(){
         
         String[] shopNames = {
-            "Lemonade Stand", "Newspaper Stand", "Bakery", "Lumber Yard", "Thrift Store",
+            "Lemonade Stand", "Newspaper Stand", "Potato Farm", "Lumber Yard", "Thrift Store",
             "Boba Shop", "Bakery", "Sports Store", "Perfume Shop", "Seafood Restaurant",
-            "Telecommunications Company", "Video Game Company", "Movie Streaming Service",
+            "Movie Streaming Service", "Telecommunications Company", "Video Game Company",
             "Electronics Store", "Car Dealership", "Real Estate Agency", "Law Firm",
             "Autonomous Robot Manufacturer", "Quantum Computer Manufacturer", "Space Exploration Ventures"
         };
@@ -130,15 +110,21 @@ public class SecondaryController {
         shopCnt++;
     }
 
-    public void hireManager(String shop){
+    public boolean hireManager(String shop){
         for(int i = 1; i < 21; i++){
             if(shop.equals("shop" + i)){
                 if(!shopArr[i-1].getHired() && currentCapital >= shopArr[i-1].getManagerWage()){
                     updateCurrentCapital("-", shopArr[i-1].getManagerWage());
                     shopArr[i-1].setHired();
+                    return true;
                 }
-                break;
+                return false;
             }
         }
+        return false;
+    }
+
+    public ShopContainer[] getShopArr(){
+        return shopArr;
     }
 }
