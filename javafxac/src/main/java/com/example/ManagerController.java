@@ -24,7 +24,7 @@ public class ManagerController {
     private ShopContainer[] shops;
 
     private String[] suffixes = {
-        "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
+        "", "K", "M", "B", "T", "Quad", "Quint", "S", 
         "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
         "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
     };
@@ -91,7 +91,7 @@ public class ManagerController {
             managerBox.getChildren().add(hireButtons[i]);
 
             if(!shops[i].getInvested() || shops[i].getHired()){
-                hireButtons[i].setDisable(true);
+                hireButtons[i].setVisible(false);
             }
         }
     }

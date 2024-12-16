@@ -18,15 +18,16 @@ public class SecondaryController {
     private static String currentCapitalString;
     private static int shopCnt = 0;
     private static int rows = 10;
+    private int capitalMetric;
 
     ManagerController managerController;
 
-    private static boolean testing = true;
+    private static boolean testing = false;
 
     ShopContainer[] shopArr = new ShopContainer[20];
 
     private String[] suffixes = {
-        "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
+        "", "K", "M", "B", "T", "Quad", "Quint", "S", 
         "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
         "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
     };
@@ -34,10 +35,12 @@ public class SecondaryController {
     // @FXML
     public void initialize() {
         if(testing){
-            updateCurrentCapital("+", 10000000000.00);
+            initialCapital(10000000000.00);
+        }else{
+            initialCapital(0.0);
         }
 
-        currentCapitalLabel.setText("Current Capital: " + currentCapitalString);
+        currentCapitalLabel.setText(currentCapitalString);
 
         setupShops();
     }
@@ -65,6 +68,8 @@ public class SecondaryController {
             GridPane.setHgrow(shop.getContainer(), Priority.ALWAYS);
             shopCnt++;
         }
+
+        showUpgrade();
     }
 
     @FXML
@@ -98,6 +103,12 @@ public class SecondaryController {
         return currentCapitalLabel;
     }
 
+    public void initialCapital(double val){
+        currentCapital = val;
+        currentCapitalString = setCapitalString();
+        currentCapitalLabel.setText(currentCapitalString);
+    }
+
     public void updateCurrentCapital(String operation, double val){
         if(operation.equals("+")){
             currentCapital += val;
@@ -108,8 +119,11 @@ public class SecondaryController {
         } else if(operation.equals("/")){
             currentCapital /= val;
         }
+
         currentCapitalString = setCapitalString();
-        currentCapitalLabel.setText("Current Capital: " + currentCapitalString);
+        currentCapitalLabel.setText(currentCapitalString);
+
+        showUpgrade();
     }
 
     public static void updateShopCnt(){
@@ -152,9 +166,13 @@ public class SecondaryController {
         String result;
         if(metric == 0){
             result = "Current Capital: $" + String.format("%.2f", rem) + prefix;
-        }else{
-            result = "Current Capital: $" + String.format("%.3f", rem) + prefix;
         }
+        else{
+            result = "Current Capital: $" + String.format("%.3f", rem) + prefix;
+            // result = "Current Capital: $" + String.format("%." + (metric * 3) + "f", rem) + prefix;
+        }
+
+        
     
         // Debug output (remove in production)
         System.out.println("Upgrade: " + currentCapital 
@@ -162,7 +180,21 @@ public class SecondaryController {
             + ", upgradeMetric: " + metric 
             + ", upgradePrefix: " + prefix);
         System.out.println("Result: " + result);
+
+        capitalMetric = metric;
     
         return result;
+    }
+
+    public void showUpgrade(){
+        for (int i = 0; i < shopArr.length; i++) {
+            if (shopArr[i] != null && shopArr[i].getInvested()) { 
+                if (currentCapital >= shopArr[i].getUpgradeVal()) {
+                    shopArr[i].showUpgrade();
+                } else {
+                    shopArr[i].hideUpgrade();
+                }
+            }
+        }
     }
 }

@@ -55,7 +55,7 @@ public class ShopContainer {
     private SecondaryController sc;
 
     private String[] suffixes = {
-        "", "K", "Mil", "Bil", "Tri", "Quad", "Quint", "S", 
+        "", "K", "M", "B", "T", "Quad", "Quint", "S", 
         "Sept", "Octi", "Non", "Dec", "Un", "Duo", "Tre", 
         "Quat", "Quin", "SD", "Septen", "Octo", "Novem", "Vig"
     };
@@ -169,6 +169,12 @@ public class ShopContainer {
         upgradeButton.setPrefSize(200, 25);
         profitButton.setPrefSize(200, 25);
         buttons.setAlignment(Pos.CENTER);
+
+        if(sc.getCurrentCapital() < upgradeVal){
+            upgradeButton.setDisable(true);
+        } else {
+            upgradeButton.setDisable(false);
+        }
 
         if(!shopName.equals("Lemonade Stand")){
             header.setVisible(false);
@@ -343,6 +349,10 @@ public class ShopContainer {
         return shopName;
     }
 
+    public Double getUpgradeVal(){
+        return upgradeVal;
+    }
+
     /*private String investString = "$" + String.format("%.2f", investVal);
     private String upgradeString = "$" + String.format("%.2f", upgradeVal);
     private String profitString = "$" + String.format("%.2f", profit); */
@@ -408,7 +418,7 @@ public class ShopContainer {
 
     public String setUpgradeString(){
         // Convert the initial value to a scaled-down version
-        double rem = profit;
+        double rem = upgradeVal;
         int metric = 0;
     
         while (rem >= 1000 && metric < suffixes.length - 1) {
@@ -436,5 +446,13 @@ public class ShopContainer {
         System.out.println("Result: " + result);
     
         return result;
+    }
+
+    public void showUpgrade(){
+        upgradeButton.setDisable(false);
+    }
+
+    public void hideUpgrade(){
+        upgradeButton.setDisable(true);
     }
 }
